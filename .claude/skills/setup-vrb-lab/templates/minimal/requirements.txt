@@ -1,0 +1,5 @@
+# Python packages installed into the lab image (pip).
+# One package per line; pin versions when reproducibility matters.
+ipywidgets
+matplotlib
+numpy

@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# ROS build artifacts (rebuilt inside the image)
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+catkin_ws/build/
+catkin_ws/devel/
+catkin_ws/logs/
+
+# Editors / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Local logs
+*.log

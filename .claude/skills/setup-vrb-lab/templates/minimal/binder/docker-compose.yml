@@ -1,0 +1,39 @@
+# Local development for the VRB lab "__LAB_NAME__".
+#
+#   docker compose -f binder/docker-compose.yml up --build   # build + start
+#   open http://localhost:8888
+#   docker compose -f binder/docker-compose.yml down         # stop + remove
+#
+# The repository is mounted into the container, so edits to notebooks and
+# Python files are visible immediately. Dockerfile changes need a rebuild.
+services:
+  __LAB_NAME__:
+    image: __LAB_NAME__:local
+    build:
+      context: ../
+      dockerfile: ./binder/Dockerfile
+    stdin_open: true
+    tty: true
+    user: root
+    working_dir: /home/repo
+    command: jupyter lab --allow-root --NotebookApp.token='' --no-browser --ip=0.0.0.0
+    ports:
+      - "8888:8888"
+    volumes:
+      - ../:/home/repo:rw
+      # Host display (Linux): run GUI apps on your own screen instead of the VNC desktop.
+      # Requires `xhost +local:docker` on the host. Uncomment together with DISPLAY below.
+      # - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    environment:
+      - LIBGL_ALWAYS_SOFTWARE=1
+      - QT_X11_NO_MITSHM=1
+      # - DISPLAY=${DISPLAY}
+      # GPU (NVIDIA Container Toolkit required). Uncomment together with `deploy:` below.
+      # - NVIDIA_DRIVER_CAPABILITIES=all
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
